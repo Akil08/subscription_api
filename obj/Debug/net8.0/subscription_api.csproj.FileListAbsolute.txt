@@ -1,0 +1,9 @@
+C:\Users\User\Documents\Projects\subscription_api\obj\Debug\net8.0\subscription_api.csproj.AssemblyReference.cache
+C:\Users\User\Documents\Projects\subscription_api\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\User\Documents\Projects\subscription_api\obj\Debug\net8.0\subscription_api.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\Projects\subscription_api\obj\Debug\net8.0\subscription_api.AssemblyInfoInputs.cache
+C:\Users\User\Documents\Projects\subscription_api\obj\Debug\net8.0\subscription_api.AssemblyInfo.cs
+C:\Users\User\Documents\Projects\subscription_api\obj\Debug\net8.0\subscription_api.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\Projects\subscription_api\obj\Debug\net8.0\subscription_api.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\User\Documents\Projects\subscription_api\obj\Debug\net8.0\subscription_api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\User\Documents\Projects\subscription_api\obj\Debug\net8.0\subscription_api.sourcelink.json
