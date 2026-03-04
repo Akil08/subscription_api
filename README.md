@@ -73,7 +73,7 @@ Upgrades or downgrades the user's plan.
 {
   "success": true,
   "message": "Upgraded to Pro plan",   // or "Changed to Free plan"
-  "monthlyQuota": 10000,               // or 1000
+  "monthlyQuota": 10000,               
   "usedThisMonth": 0
 }
 ```
