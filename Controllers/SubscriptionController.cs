@@ -18,6 +18,31 @@ public class SubscriptionController : ControllerBase
     }
 
     [HttpGet("data/user/{userId:int}")]
+
+
+    // why iactionresult , why not action result ?
+    // IActionResult is an interface that represents the result of an action method in ASP.NET Core MVC. 
+    // It allows you to return different types of responses (e.g., Ok, NotFound, BadRequest)
+    //  from your controller actions.
+    // ActionResult is a concrete class that implements IActionResult and provides 
+    // a more specific way to return responses.
+    // You can use IActionResult when you want to return different types of 
+    // responses based on certain conditions, while ActionResult is typically 
+    // sed when you want to return a specific type of response (e.g., OkObjectResult, NotFoundResult) 
+    // directly from your action method.
+    
+    // can i always replace IActionResult with ActionResult in this method ?
+    // No, you cannot always replace IActionResult with ActionResult in this method.
+    // IActionResult allows you to return different types of responses (e.g., Ok, NotFound, BadRequest) 
+    // based on certain conditions, 
+    // while ActionResult is typically used when you want to return a specific type of response directly 
+    // from your action method.
+    // If your method needs to return different types of responses based on conditions, you should use IActionResult. 
+    // If your method always returns a specific type of response, you can use ActionResult for simplicity. 
+    // However, in this case, since the method can return different types of responses (Ok, NotFound, StatusCode), 
+    // it is more appropriate to use IActionResult.
+    // In summary, use IActionResult when you need flexibility in the types of responses you return, 
+    // and use ActionResult when you always return a specific type of response.
     public async Task<IActionResult> GetData(int userId)
     {
         // Check if user exists
@@ -30,7 +55,10 @@ public class SubscriptionController : ControllerBase
         // Check rate limit
         var isRateLimited = await _rateLimitService.IsRateLimitedAsync(userId);
         if (isRateLimited)
-        {
+        {  
+            // false means they user can make req ? 
+            // Yes, if IsRateLimitedAsync returns false, 
+            // it means the user is not currently rate limited and can make the request.
             return StatusCode(429, "Too Many Requests");
         }
 

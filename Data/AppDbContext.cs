@@ -26,7 +26,11 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Subscription>()
             .HasOne<User>()
-            .WithMany()
+            .WithMany() // why many ? 
+            // The WithMany() method is used to configure a one-to-many relationship 
+            // between the Subscription and User entities.
+            // In this case, it indicates that a User can have many Subscriptions, 
+            // but a Subscription is associated with only one User.
             .HasForeignKey(s => s.UserId)
             .IsRequired();
     }
