@@ -48,7 +48,18 @@ public class SubscriptionService : ISubscriptionService
         var updateCount = await _context.Subscriptions
             .Where(s => s.UserId == userId && s.UsedThisMonth < s.MonthlyQuota)
             .ExecuteUpdateAsync(s => s.SetProperty(x => x.UsedThisMonth, x => x.UsedThisMonth + 1));
-
+      
+        // so suppse when we increment and then the user also do some work , then don't we have to make
+        // sure after his work is done then we increment the usage ? if so then we must use lock, right ?
+        // If you want to ensure that the usage is only incremented after the user's work is done,
+        // you would typically handle this in the business logic of your application.
+        // You could use a lock to ensure that the increment operation is thread-safe,
+        // but in a web application, it's generally better to design your operations to be 
+        // idempotent and handle concurrency at the database level (like using ExecuteUpdateAsync) 
+        // ]rather than relying on locks, which can lead to performance issues and deadlocks.
+        // In this case, since ExecuteUpdateAsync is atomic, 
+        // it will handle concurrent increments correctly without the need for explicit locks in your 
+        // application code.
         return updateCount > 0;
     }
 
@@ -106,6 +117,28 @@ public async Task RunDailyJobAsync()
                    && s.SubscriptionEndDate.Value.Date > today)
         .ToListAsync();
 
+    // in above can we jsut cehck if the date is <= reminder date, why we need to check if it is > today ?
+    // We check if the SubscriptionEndDate is > today to ensure that we are only sending reminders for 
+    // subscriptions that are expiring in the future (within the next 5 days) and not for those that 
+    // have already expired.
+    // If we only check for <= reminderDate, we might end up sending reminders for subscriptions 
+    // that have already expired, which would not be useful for the users and could lead to confusion.    
+    // so if we remove that condition, then we will send reminder for all the pro users 
+    // whose subscription end date is less than or equal to reminder date, even if 
+    // their subscription has already expired, right ?
+    // Yes, if we remove the condition that checks if the SubscriptionEndDate is > today   
+    // , we would end up sending reminders for all Pro users whose 
+    // subscription end date is less than or equal to the reminder date, 
+    // ncluding those whose subscriptions have already expired. 
+    // This could lead to confusion for users who receive reminders about subscriptions that are no longer active.
+
+    // as we r mimickign the mail sendding bewlo code , right ? tehn
+    // suppose what if seniding mail fails, then do we still downgrade the user wiht the code belwo after mail sending ? 
+    // Yes, the code for downgrading the user will still execute regardless of whether the email sending succeeds or fails.
+    // This is because the email sending is just a simulation (Console.WriteLine) and does not affect the execution of the subsequent code that performs the bulk downgrade of expired Pro subscriptions.
+   
+   // 
+
     foreach (var sub in expiringProSubs)
     {
         Console.WriteLine($"Email reminder sent to {sub.User.Email}");
@@ -122,5 +155,11 @@ public async Task RunDailyJobAsync()
 
     // No need for separate SaveChangesAsync as ExecuteUpdateAsync handles it internally
 
+   }
+  
+   // sending mail fun
+
+
 }
-}
+
+

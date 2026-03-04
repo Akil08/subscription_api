@@ -35,6 +35,9 @@ builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
 // Hangfire with PostgreSQL storage
 
+// where did we configure as a tool in our project ?
+
+
 // so hangfire must use a db or can it work without a db?
 // Hangfire requires a persistent storage to manage background jobs, 
 //and it does not work without a database. 

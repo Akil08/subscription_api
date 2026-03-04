@@ -57,6 +57,8 @@ public class RateLimitService : IRateLimitService
             // the catch block will execute and return false,
             // allowing the request to proceed without rate limiting.
 
+            // ok.
+
             return false;
         }
     }
