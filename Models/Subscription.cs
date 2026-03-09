@@ -10,10 +10,6 @@ public class Subscription
 
     [ForeignKey("UserId")]
   
-    // but does not usually navigation are set in the fulent api ?
-    // Navigation properties can be set using data annotations like [ForeignKey] or 
-    // through Fluent API in the DbContext's OnModelCreating method.
-
     public virtual User User { get; set; } // Navigation Property
 
 }
